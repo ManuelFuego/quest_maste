@@ -1,0 +1,11 @@
+<!--подключаем шаблон   -->
+{% extends 'quest/question_base.html' %}
+
+
+<h4 class="mb-5"> Answers:</h4>
+  {% for answer in answers %}
+   <p> {{ answer }} </p>
+  {% endfor %}
+{% endblock %}
+
+

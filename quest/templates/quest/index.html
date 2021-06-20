@@ -1,0 +1,43 @@
+<!--подключаем шаблон   -->
+{% extends 'quest/question_base.html' %}
+
+
+{% block title %}
+    Questions
+{% endblock %}
+
+{% block quest %}
+<h3 class="mb-2" >Question: </h3>
+
+    {% for question in questions %}
+    <div class="card">
+    <div class="card-body">
+           <p> {{ question }} </p>
+    </div>
+    </div>
+{% endfor %}
+{% endblock %}
+<br>
+
+{% block answers%}
+<h4 class="mb-5"> Answers:</h4>
+   {% for answer in answers %}
+    {% if answer.question == answer.question%}
+    <div class="card">
+    <div class="card-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            <br>
+            {{answer.answer}}
+            <button class="btn btn-dark btn-lg" type="submit" >{{answer}}</button>
+            {% endif%}
+        </form>
+        <br>
+
+    </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+
