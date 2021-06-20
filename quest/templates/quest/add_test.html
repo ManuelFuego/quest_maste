@@ -3,6 +3,15 @@
       Add Test
     {% endblock %}
 
-    {% block add_test %}
+    {% block info %}
 <h3 class="mb-2" >Add Test: </h3>
     {% endblock %}
+
+
+    {% block add_test %}
+<form action="{% url 'add_test'%}" method="post">
+    {% csrf_token%}
+    {{ form.as_p }}
+    <button type="submit"> Add </button>
+</form>
+    {% endblock%}

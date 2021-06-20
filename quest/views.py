@@ -5,6 +5,8 @@ from .models import  Question
 from .models import Answer
 from collections import defaultdict
 import  django_filters
+from .forms import *
+from .models import *
 
 def question_list(request):
 
@@ -25,7 +27,13 @@ def question_list(request):
 
 
 def add_test(request):
-    return  render(request, 'quest/add_test.html')
+    if request.method == 'POST':
+        form = AddTest(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddTest()
+    return  render(request, 'quest/add_test.html', {'form':form})
 
 def about(request):
     return  render(request, 'quest/about.html')
