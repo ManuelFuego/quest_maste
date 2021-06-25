@@ -1,0 +1,54 @@
+<!--подключаем шаблон   -->
+{% extends 'quest/question_base.html' %}
+
+
+{% block title %}
+Question
+{% endblock %}
+
+{% block quest %}
+<h3 class="mb-2">Question: </h3>
+{% for i in question %}
+<div class="card">
+    <div class="card-body">
+        <p> {{i.quest}} </p>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <p> 1) {{i.answers.0}} </p>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <p> 2) {{i.answers.1}} </p>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <p> 3) {{i.answers.2}} </p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+
+<!--{% block answers%}-->
+<!--<h4 class="mb-5"> Answers:</h4>-->
+<!--   {% for answer in answers %}-->
+<!--   {% for m_answer in answer.answer.all %}-->
+
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
+<!--        <form action="" method="post">-->
+<!--            {% csrf_token %}-->
+<!--            <br>-->
+<!--            <button class="btn btn-dark btn-lg" type="submit" >{{ m.answer}}</button>-->
+<!--        </form>-->
+<!--        <br>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--{% endfor %}-->
+<!--{% endfor %}-->
+
+<!--{% endblock %}-->
