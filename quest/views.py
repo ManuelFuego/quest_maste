@@ -49,7 +49,7 @@ def test_number_one(request):
         listA = []
         for a in answers:
             if a.question == q:
-                listA.append(a.answer)
+                listA.append(a)
         test['answers'] = listA
         s.append(test)
 

@@ -9,26 +9,13 @@ Question
 {% block quest %}
 <h3 class="mb-2">Question: </h3>
 {% for i in question %}
-<div class="card">
-    <div class="card-body">
-        <p> {{i.quest}} </p>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <p> 1) {{i.answers.0}} </p>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <p> 2) {{i.answers.1}} </p>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <p> 3) {{i.answers.2}} </p>
-    </div>
-</div>
+<form>
+    <p><b>{{i.quest}}</b></p>
+    {% for j in i.answers %}
+    <p><input name={{j.answer_uuid}} type="radio" value={{j.is_right}}> {{j.answer}}</p>
+    {% endfor %}
+    <p><input type="submit" value="Следующий вопрос"></p>
+</form>
 {% endfor %}
 {% endblock %}
 
