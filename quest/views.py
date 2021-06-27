@@ -7,6 +7,8 @@ from collections import defaultdict
 from .forms import *
 from .models import *
 
+answerlist = []
+
 
 def question_list(request):
     '''
@@ -41,6 +43,7 @@ def about(request):
 def test_number_one(request):
     quest = Question.objects.all()
     answers = Answer.objects.all()
+
     s = []
     for q in quest:
         test = {
@@ -53,5 +56,26 @@ def test_number_one(request):
         test['answers'] = listA
         s.append(test)
 
-    context = {'question': s}
+    paginator = Paginator(s, 1)
+    page = int(request.GET.get('page', '1'))
+    pages = paginator.page(page)
+
+    context = {'page': pages}
     return render(request, 'quest/test_number_one.html', context)
+
+
+def save(request):
+    answer = request.GET['answer']
+    answerlist.append(answer)
+    return render(request, 'quest/test_number_one.html')
+
+
+def result(request):
+    scope = 0
+    for i in answerlist:
+        if i == 'True':
+            scope += 1
+
+    context = {'scope': scope/len(answerlist)}
+
+    return render(request, 'quest/result.html', context)
