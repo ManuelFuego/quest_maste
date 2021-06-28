@@ -1,0 +1,13 @@
+<!--подключаем шаблон   -->
+{% extends 'quest/question_base.html' %}
+
+
+{% block title %}
+Result
+{% endblock %}
+{% block result %}
+<h3 class="mb-2">Result</h3>
+<br>
+<p> Ваш результат: {{scope}} </p>
+
+{% endblock %}

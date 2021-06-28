@@ -29,6 +29,13 @@ class Answer(models.Model):
     def __str__(self):
         return f' {str(self.question)} {str(self.answer)} {str(self.is_right)}'
 
+class Message(models.Model):
+    mail = models.EmailField()
+    text = models.CharField(max_length=400)
+
+    def __str__(self):
+        return f' {self.mail},{self.text}'
+
 
 class QuestionsInline(admin.TabularInline):
     model = Answer

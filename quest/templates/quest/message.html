@@ -1,0 +1,15 @@
+{% extends 'quest/question_base.html' %}
+
+
+{% block add_message %}
+<form action="{% url 'add_message' %}" method="post">
+    {% csrf_token %}
+    <text> Email: </text>
+    <p>{{ form.mail }}</p>
+    <br>
+    <text> Сообщение пользователя: </text>
+    <p>{{ form.text }}</p>
+    <button type="submit">Оставить сообщение</button>
+</form>
+    {% endblock %}
+

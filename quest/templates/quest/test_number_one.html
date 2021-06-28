@@ -12,11 +12,12 @@ Question
 <form>
     <p name="que"><b>{{i.quest}}</b></p>
     {% for j in i.answers %}
-    <div><input name="answer" type="radio" value={{j.is_right}}> {{j.answer}}</div>
+    <div><input name="answer" type="radio" value="{{j.question}}@{{j.answer}}@{{j.answer_uuid}}@{{j.is_right}},"> {{j.answer}}</div>
     {% endfor %}
+<!--{{j.answer_uuid}}-->
 </form>
 <div class="form-group">
-    <button class="btn btn-success" id="save"> Подтвердить ответ</button>
+    <button class="btn btn-secondary" id="save"> Подтвердить ответ</button>
 </div>
 
 {% if page.has_next %}

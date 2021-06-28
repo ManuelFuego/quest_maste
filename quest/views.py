@@ -1,49 +1,30 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Question
-from .models import Answer
-from collections import defaultdict
+
 from .forms import *
 from .models import *
 
-answerlist = []
+def start_test(request):
+    return render(request, 'quest/index.html')
 
-
-def question_list(request):
-    '''
-    paginator = Paginator(questions,1)
-    page_num = request.GET.get('page')
-    page_obj = paginator.get_page(page_num)
-    answers = Answer.objects.all()
-
-    '''
-    quest = Answer.objects.all()
-    paginator = Paginator(quest, 1)
-    page_num = request.GET.get('page')
-    questions = paginator.get_page(page_num)
-    # return render(request, 'quest/index.html',context={'page_obj':page_obj, 'answers':answers})
-    return render(request, 'quest/index.html', context={'questions': questions})
-
-
-def add_test(request):
+def add_message(request):
     if request.method == 'POST':
-        form = AddTest(request.POST)
+        form = Addmessage(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            form.save()
+            form= Addmessage()
     else:
-        form = AddTest()
-    return render(request, 'quest/add_test.html', {'form': form})
-
+        form = Addmessage()
+    return render(request, 'quest/message.html', {'form': form})
 
 def about(request):
     return render(request, 'quest/about.html')
 
-
+answerlist = []
 def test_number_one(request):
     quest = Question.objects.all()
     answers = Answer.objects.all()
-
     s = []
     for q in quest:
         test = {
@@ -55,27 +36,35 @@ def test_number_one(request):
                 listA.append(a)
         test['answers'] = listA
         s.append(test)
-
     paginator = Paginator(s, 1)
     page = int(request.GET.get('page', '1'))
     pages = paginator.page(page)
-
     context = {'page': pages}
     return render(request, 'quest/test_number_one.html', context)
 
+def saveall(request):
+    answer = request.GET['answer']
+    alllist=[]
+    alllist.append(answer)
+    #return render(request, 'quest/test_number_one.html')
 
+ans = []
 def save(request):
     answer = request.GET['answer']
     answerlist.append(answer)
     return render(request, 'quest/test_number_one.html')
-
 
 def result(request):
     scope = 0
     for i in answerlist:
         if i == 'True':
             scope += 1
-
+    if len(answerlist) != 0:
+        scope = 0
+    else:
+        try:
+            scope = scope/len(answerlist)
+        except ZeroDivisionError:
+            return render(request, 'quest/index.html')
     context = {'scope': scope/len(answerlist)}
-
     return render(request, 'quest/result.html', context)

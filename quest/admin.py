@@ -13,3 +13,6 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     search_fields = ('question',)
+
+admin.site.register(Message)
+
