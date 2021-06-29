@@ -32,9 +32,14 @@ class Answer(models.Model):
 class Message(models.Model):
     mail = models.EmailField()
     text = models.CharField(max_length=400)
+    date_pub = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'
 
     def __str__(self):
-        return f' {self.mail},{self.text}'
+        return f' {self.mail},{self.text} ,{self.date_pub}'
 
 
 class QuestionsInline(admin.TabularInline):

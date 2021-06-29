@@ -13,10 +13,15 @@ def add_message(request):
         form = Addmessage(request.POST)
         if form.is_valid():
             form.save()
-            form= Addmessage()
+            form = Addmessage()
     else:
         form = Addmessage()
-    return render(request, 'quest/message.html', {'form': form})
+
+    show_message = Message.objects.order_by('-date_pub')
+    paginator = Paginator(show_message, 3)
+    page = int(request.GET.get('page','1'))
+    message = paginator.page(page)
+    return render(request, 'quest/message.html', {'form': form,'message':message})
 
 def about(request):
     return render(request, 'quest/about.html')
@@ -46,7 +51,8 @@ def saveall(request):
     answer = request.GET['answer']
     alllist=[]
     alllist.append(answer)
-    #return render(request, 'quest/test_number_one.html')
+    print(alllist)
+    return render(request, 'quest/test_number_one.html')
 
 ans = []
 def save(request):

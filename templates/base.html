@@ -15,7 +15,7 @@
     <script src="{% static 'script.js' %}"></script>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-blue" style="background-color : #e3f3d;"></nav>
+<nav class="navbar navbar-dark" style="background-color : #e3f3d;"></nav>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -40,6 +40,7 @@
     </div>
 </nav>
 <div class="container offset-md-2 mt-5">
+
     {% block quest %}
     {% endblock %}
 
@@ -49,11 +50,15 @@
     {% block about %}
     {% endblock %}
 
+    {% block message %}
+    {% endblock %}
+
     {% block add_message %}
     {% endblock %}
 
     {% block result %}
     {% endblock %}
+
 </div>
 <div class="container offset-md-2 mt-5">
     {% block answers %}

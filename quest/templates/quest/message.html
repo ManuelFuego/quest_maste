@@ -1,6 +1,18 @@
 {% extends 'quest/question_base.html' %}
 
 
+{% block message %}
+    {% for i in message %}
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">{{i.mail}}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{i.text|truncatewords:25}}</h5>
+    <p class="card-text">{{i.date_pub}}</p>
+  </div>
+</div>
+    {% endfor %}
+{% endblock %}
+
 {% block add_message %}
 <form action="{% url 'add_message' %}" method="post">
     {% csrf_token %}
@@ -11,5 +23,17 @@
     <p>{{ form.text }}</p>
     <button type="submit">Оставить сообщение</button>
 </form>
-    {% endblock %}
+{% endblock %}
 
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+        {% for i in paginator.page_range %}
+        {% if message.number == i %}
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"><a class="page-link" href="?page{{i}}">{{i}}</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        {% endif %}
+        {% endfor %}
+  </ul>
+</nav>
