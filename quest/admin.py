@@ -14,5 +14,6 @@ class QuestionAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     search_fields = ('question',)
 
+
 admin.site.register(Message)
 

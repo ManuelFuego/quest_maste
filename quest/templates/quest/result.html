@@ -9,5 +9,8 @@ Result
 <h3 class="mb-2">Result</h3>
 <br>
 <p> Ваш результат: {{scope}} </p>
-
+<p> Ваши ответы :</p>
+{% for i in user_choice %}
+<p>{{i}}</p>
+{% endfor %}
 {% endblock %}

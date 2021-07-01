@@ -27,7 +27,7 @@ class Answer(models.Model):
         verbose_name_plural = 'Варианты ответа'
 
     def __str__(self):
-        return f' {str(self.question)} {str(self.answer)} {str(self.is_right)}'
+        return f' {str(self.question)} {str(self.answer)} {str(self.is_right)} {str(self.answer_uuid)}'
 
 class Message(models.Model):
     mail = models.EmailField()
