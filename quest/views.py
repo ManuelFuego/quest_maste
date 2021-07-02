@@ -1,7 +1,6 @@
 import re
-
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from .forms import *
@@ -28,7 +27,7 @@ def about(request):
     return render(request, 'quest/about.html')
 
 answerlist = []
-def test_number_one(request):
+def testpage(request):
     quest = Question.objects.all()
     answers = Answer.objects.all()
     s = []
@@ -46,24 +45,25 @@ def test_number_one(request):
     page = int(request.GET.get('page', '1'))
     pages = paginator.page(page)
     context = {'page': pages}
-    return render(request, 'quest/test_number_one.html', context)
+    return render(request, 'quest/testpage.html', context)
 
 def save(request):
     ''' для подсчета'''
     answer = request.GET['answer']
     answerlist.append(answer)
-    return render(request, 'quest/test_number_one.html')
+    return render(request, 'quest/testpage.html')
 
 uuidlist = []           # лист uuid с его помощью вытягиваем ответы пользователя
-trues_list = []         # лист тру считаем ответы
-user_choice = []        # здесь хранятся ответы
+trues_list = []         # лист тру для подсчета количества правильных ответов
+user_choice = []        # для вывода выбранных пользователем ответов
+
 def result(request):
-    scope = 0
+    score = 0
     for i in answerlist:
         uuidlist.append(re.findall((r'^(.+?)\@'),i))
     for u in uuidlist:
         for n in u:
-            user_ans = Answer.objects.filter(answer_uuid=n).values_list('answer')
+            user_ans = Answer.objects.filter(answer_uuid=n).values_list('answer', flat=True)
             user_choice.append(user_ans)
 
 
@@ -71,12 +71,13 @@ def result(request):
         trues_list.append(re.findall((r'@(.*)'), t))
     for b in trues_list:
         for a in b :
-            if 'True' in a :
-                scope += 1
+            if 'True' in a:
+                score += 1
     try:
-        scope = scope/len(answerlist)
+        score = score/len(answerlist)
     except ZeroDivisionError:
-            return render(request, 'quest/index.html')
-    context = {'scope': scope, 'user_choice':user_choice}
+            score= 0
+            return render(request, 'quest/result.html',context={'score':score})
+    context = {'score': score * 100, 'user_choice': user_choice}
     return render(request, 'quest/result.html', context)
 
