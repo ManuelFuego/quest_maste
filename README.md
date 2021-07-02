@@ -10,3 +10,8 @@ source env/bin/activate
 PRG1\Scripts\activate.bat     (RPG1 - название проекта )
 #установка django 
 pip install django
+
+запуск сервера python manage.py runserver 
+в адресной строке браузера вводим данную ссылку http://127.0.0.1:8000/quest/
+
+в данной версии приложения не реализованы DTO объекты и сервис QuizResult
