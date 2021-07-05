@@ -1,0 +1,2 @@
+yesbutton = 'input'
+question1 = ''
