@@ -1,4 +1,4 @@
-# quest_maste
+# quest_master
 #установка виртуального окружения
 pip install virtualenv
 
